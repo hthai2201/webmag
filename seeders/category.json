@@ -1,0 +1,34 @@
+[
+  {
+    "name": "Web Design",
+    "slug": "web-design",
+    "color": "#89903e",
+    "subCategories": [
+      { "name": "Html & Css", "slug": "html-css", "color": "#89903e" },
+      { "name": "Javascript", "slug": "javascript", "color": "#89903e" }
+    ]
+  },
+  {
+    "name": "Front End",
+    "slug": "front-end",
+    "color": "#f4feb8",
+    "subCategories": [
+      { "name": "React Js", "slug": "reactjs", "color": "#89903e" },
+      { "name": "Vue Js", "slug": "vuejs", "color": "#89903e" }
+    ]
+  },
+  {
+    "name": "Back End",
+    "slug": "back-end",
+    "color": "#96e08d",
+    "subCategories": [
+      { "name": "Node Js", "slug": "nodejs", "color": "#89903e" },
+      { "name": "Python", "slug": "Python", "color": "#89903e" }
+    ]
+  },
+  {
+    "name": "Testing",
+    "slug": "Testing",
+    "color": "#89903e"
+  }
+]

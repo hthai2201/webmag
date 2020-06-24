@@ -1,0 +1,26 @@
+{
+  "development": {
+    "mongodb": {
+      "url": "mongodb://127.0.0.1:27017/webmag"
+    }
+  },
+  "production": {},
+  "common": {
+    "pagination": {
+      "limit": 6
+    },
+    "authentication": {
+      "saltRounds": 8,
+      "jwtPrivateKey": "ahihi"
+    },
+    "post": {
+      "featuredPostDayLimit": 7,
+      "featuredPostLimit": 3,
+      "recentPostLimit": 9,
+      "mostReadPostLimit": 9,
+      "relativePostLimit": 5,
+      "searchPostLimit": 10,
+      "asidePostLimit": 5
+    }
+  }
+}

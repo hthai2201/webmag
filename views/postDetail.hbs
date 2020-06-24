@@ -1,0 +1,166 @@
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <!-- Post content -->
+            <div class="col-md-8">
+                {{#with post}}
+                <div class="section-row sticky-container">
+                    <div class="main-post">
+                        {{{content}}}
+                    </div>
+                    <div class="post-shares sticky-shares">
+                        <a href="#" class="share-facebook"><i class="fa fa-facebook"></i></a>
+                        <a href="#" class="share-twitter"><i class="fa fa-twitter"></i></a>
+                        <a href="#" class="share-google-plus"><i class="fa fa-google-plus"></i></a>
+                        <a href="#" class="share-pinterest"><i class="fa fa-pinterest"></i></a>
+                        <a href="#" class="share-linkedin"><i class="fa fa-linkedin"></i></a>
+                        <a href="#"><i class="fa fa-envelope"></i></a>
+                    </div>
+                </div>
+
+                <!-- ad -->
+                <div class="section-row text-center">
+                    <a href="#" style="display: inline-block;margin: auto;">
+                        <img class="img-responsive" src="/img/ad-2.jpg" alt="">
+                    </a>
+                </div>
+                <!-- ad -->
+
+                <!-- author -->
+                <div class="section-row">
+                    <div class="post-author">
+                        {{#with author}}
+
+
+                        <div class="media">
+                            <div class="media-left">
+                                <img class="media-object" src="{{avatar}}" alt="{{fullname}}">
+                            </div>
+                            <div class="media-body">
+                                <div class="media-heading">
+                                    <h3>{{#if pseudonym}}
+                                        {{pseudonym}}
+                                        {{else}}
+                                        {{fullname}}
+                                        {{/if}}</h3>
+                                </div>
+                                <p>{{desc}}</p>
+                                <ul class="author-social">
+                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        {{/with}}
+                    </div>
+                </div>
+                <!-- /author -->
+
+                <!-- comments -->
+                <div class="section-row">
+                    <div class="section-title">
+                        <h2>{{commentCount}} comments</h2>
+                    </div>
+
+                    <div class="post-comments">
+                        {{#each commnets}}
+                        <!-- comment -->
+                        <div class="media">
+                            <div class="media-left">
+                                <img class="media-object" src="{{avatar}}" alt="{{fullname}}">
+                            </div>
+                            <div class="media-body">
+                                <div class="media-heading">
+                                    <h4>{{#if pseudonym}}
+                                        {{pseudonym}}
+                                        {{else}}
+                                        {{fullname}}
+                                        {{/if}}</h4>
+                                    <span class="time">{{date createdAt "MMMM D, YYYY"}}</span>
+                                    <a href="#" class="reply">Reply</a>
+                                </div>
+                                <p>{{content}}</p>
+
+                                {{#each replyComments}}
+                                <!-- comment -->
+                                <div class="media">
+                                    <div class="media-left">
+                                        <img class="media-object" src="{{avatar}}" alt="{{fullname}}">
+                                    </div>
+                                    <div class="media-body">
+                                        <div class="media-heading">
+                                            <h4>{{#if pseudonym}}
+                                                {{pseudonym}}
+                                                {{else}}
+                                                {{fullname}}
+                                                {{/if}}</h4>
+                                            <span class="time">{{date createdAt "MMMM D, YYYY"}}</span>
+                                            <a href="#" class="reply">Reply</a>
+                                        </div>
+                                        <p>{{content}}</p>
+
+
+                                    </div>
+                                </div>
+                                <!-- /comment -->
+                                {{/each}}
+                            </div>
+                        </div>
+                        <!-- /comment -->
+                        {{/each}}
+
+
+
+                    </div>
+                </div>
+                <!-- /comments -->
+
+                <!-- reply -->
+                <div class="section-row">
+                    <div class="section-title">
+                        <h2>Leave a reply</h2>
+                        <p>your email address will not be published. required fields are marked *</p>
+                    </div>
+                    <form class="post-reply">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <span>Name *</span>
+                                    <input class="input" type="text" name="name">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <span>Email *</span>
+                                    <input class="input" type="email" name="email">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <span>Website</span>
+                                    <input class="input" type="text" name="website">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <textarea class="input" name="message" placeholder="Message"></textarea>
+                                </div>
+                                <button class="primary-button">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- /reply -->
+                {{/with}}
+            </div>
+            <!-- /Post content -->
+
+            {{> aside}}
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>

@@ -1,0 +1,34 @@
+{
+  "name": "src-express",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "crypto": "^1.0.1",
+    "express": "^4.17.1",
+    "express-async-errors": "^3.1.1",
+    "express-handlebars": "^4.0.3",
+    "express-handlebars-sections": "^1.0.1",
+    "express-session": "^1.17.1",
+    "express-validator": "^6.6.0",
+    "handlebars-paginate": "^0.1.0",
+    "jsonwebtoken": "^8.5.1",
+    "lru-cache": "^5.1.1",
+    "moment": "^2.26.0",
+    "moment-timezone": "^0.5.31",
+    "mongoose": "^5.9.18",
+    "numeral": "^2.0.6",
+    "uuid": "^8.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}

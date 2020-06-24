@@ -1,0 +1,73 @@
+<!-- aside -->
+<div class="col-md-4">
+    {{#if noAsideAd}}
+
+    {{else}}
+    <!-- ad -->
+    <div class="aside-widget text-center">
+        <a href="#" style="display: inline-block;margin: auto;">
+            <img class="img-responsive" src="/img/ad-1.jpg" alt="">
+        </a>
+    </div>
+    <!-- /ad -->
+    {{/if}}
+
+
+    <!-- post widget -->
+    <div class="aside-widget">
+        {{#if relativePosts}}
+        <div class="section-title">
+            <h2>Relatve Posts</h2>
+        </div>
+        {{#each relativePosts}}
+        <div class="post post-widget">
+            <a class="post-img" href="/posts/{{slug}}"><img src="{{cover}}" alt=""></a>
+            <div class="post-body">
+                <h3 class="post-title"><a href="/posts/{{slug}}">{{title}}</a></h3>
+            </div>
+        </div>
+        {{/each}}
+        {{else}}
+        <div class="section-title">
+            <h2>Most Read</h2>
+        </div>
+        {{#each mostReadPosts}}
+        <div class="post post-widget">
+            <a class="post-img" href="/posts/{{slug}}"><img src="{{cover}}" alt=""></a>
+            <div class="post-body">
+                <h3 class="post-title"><a href="/posts/{{slug}}">{{title}}</a></h3>
+            </div>
+        </div>
+        {{/each}}
+        {{/if}}
+
+        <!-- catagories -->
+        <div class="aside-widget">
+            <div class="section-title">
+                <h2>Catagories</h2>
+            </div>
+            <div class="category-widget">
+                <ul>
+                    {{#each categories}}
+                    <li><a href="/categories/{{slug}}" class="">{{name}}<span
+                                style="background-color: {{color}};">340</span></a></li>
+                    {{/each}}
+                </ul>
+            </div>
+        </div>
+        <!-- /catagories -->
+
+        <!-- tags -->
+        <div class="aside-widget">
+            <div class="tags-widget">
+                <ul>
+                    {{#each tags}}
+                    <li><a href="/tags/{{slug}}">{{name}}</a></li>
+                    {{/each}}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /aside -->
+
+</div>

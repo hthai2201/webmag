@@ -1,0 +1,138 @@
+<div class="page-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10">
+                <ul class="page-header-breadcrumb">
+                    <li><a href="/">Home</a></li>
+                    <li>JavaScript</li>
+                </ul>
+                <h1>JavaScript</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- section -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">{{#if errors}}
+            <div class="center-screen">
+
+                <div class="alert alert-danger">{{errors}}</div>
+
+            </div> {{else}}
+            <div class="col-md-8">
+                <div class="row">
+                    {{#each featuredPosts}}
+                    {{#when @index "eq" 0}}
+                    <!-- post -->
+                    <div class="col-md-12">
+                        <div class="post post-thumb">
+                            <a class="post-img" href="/post/{{slug}}"><img src="{{cover}}" alt="{{title}}"></a>
+                            <div class="post-body">
+                                <div class="post-meta">
+                                    {{#with category}}
+                                    <a class="post-category " href="/categories/{{slug}}"
+                                        style="background-color: {{color}};">{{name}}</a>
+                                    {{/with}}
+                                    <span class="post-date">{{date createdAt "MMMM D, YYYY"}}</span>
+                                </div>
+                                <h3 class="post-title"><a href="/post/{{slug}}">{{title}}</a></h3>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /post -->{{else}}
+                    <!-- post -->
+                    <div class="col-md-6">
+                        <div class="post ">
+                            <a class="post-img" href="/post/{{slug}}"><img src="{{cover}}" alt="{{title}}"></a>
+                            <div class="post-body">
+                                <div class="post-meta">
+                                    {{#with category}}
+                                    <a class="post-category " href="/categories/{{slug}}"
+                                        style="background-color: {{color}};">{{name}}</a>
+                                    {{/with}}
+                                    <span class="post-date">{{date createdAt "MMMM D, YYYY"}}</span>
+                                </div>
+                                <h3 class="post-title"><a href="/post/{{slug}}">{{title}}</a></h3>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /post -->
+                    {{/when}}
+                    {{/each}}
+
+
+
+                    <!-- ad -->
+                    <div class="col-md-12">
+                        <div class="section-row">
+                            <a href="#">
+                                <img class="img-responsive center-block" src="/img/ad-2.jpg" alt="">
+                            </a>
+                        </div>
+                    </div>
+                    <!-- ad -->
+
+                    {{#each posts}}
+                    <!-- post -->
+                    <div class="col-md-12">
+                        <div class="post post-row">
+                            <a class="post-img" href="/post/{{slug}}"><img src="{{cover}}" alt="{{title}}"></a>
+                            <div class="post-body">
+                                {{#with category}}
+                                <a class="post-category " href="/categories/{{slug}}"
+                                    style="background-color: {{color}};">{{name}}</a>
+                                <span class="post-date">{{date createdAt "MMMM D, YYYY"}}</span>
+                                {{/with}}
+
+                                <h3 class="post-title"><a href="/post/{{slug}}">{{title}}</a></h3>
+                                <p>{{abstract}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /post -->
+                    {{/each}}
+                    {{#if pagination}}
+                    <div class="col-md-12">
+                        <div class="section-row">
+                            <nav aria-label="...">
+                                <ul class="pagination">
+                                    {{#paginate pagination type="first"}}
+                                    <li {{#if disabled}}class="page-item disabled" {{/if}}><a class="page-link"
+                                            href="?page={{n}}">First</a></li>
+                                    {{/paginate}}
+                                    {{#paginate pagination type="previous"}}
+                                    <li {{#if disabled}}class="page-item disabled" {{/if}}><a class="page-link"
+                                            href="?page={{n}}">Prev</a></li>
+                                    {{/paginate}}
+                                    {{#paginate pagination type="middle" limit="7"}}
+                                    <li {{#if active}}class="page-item active" {{/if}}><a class="page-link"
+                                            href="?page={{n}}">{{n}}</a></li>
+                                    {{/paginate}}
+                                    {{#paginate pagination type="next"}}
+                                    <li {{#if disabled}}class="page-item disabled" {{/if}}><a class="page-link"
+                                            href="?page={{n}}">Next</a></li>
+                                    {{/paginate}}
+                                    {{#paginate pagination type="last"}}
+                                    <li {{#if disabled}}class="page-item disabled" {{/if}}><a class="page-link"
+                                            href="?page={{n}}">Last</a></li>
+                                    {{/paginate}}
+
+                                </ul>
+                            </nav>
+
+                        </div>
+                    </div>
+                    {{/if}}
+                </div>
+            </div>
+            {{/if}}
+            {{> aside}}
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /section -->
