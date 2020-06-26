@@ -4,7 +4,9 @@
       "url": "mongodb://127.0.0.1:27017/webmag"
     }
   },
-  "production": {},
+  "production": {
+    "url": "mongodb://127.0.0.1:27017/webmag"
+  },
   "common": {
     "pagination": {
       "limit": 6
