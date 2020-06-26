@@ -5,7 +5,9 @@
     }
   },
   "production": {
-    "url": "mongodb+srv://admin:admin@webmag.brirr.azure.mongodb.net/webmag?retryWrites=true&w=majority"
+    "mongodb": {
+      "url": "mongodb+srv://admin:admin@webmag.brirr.azure.mongodb.net/webmag?retryWrites=true&w=majority"
+    }
   },
   "common": {
     "pagination": {
