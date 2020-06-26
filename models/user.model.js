@@ -4,6 +4,7 @@ const moment = require("moment-timezone");
 const bcrypt = require("bcryptjs");
 const uuidv4 = require("uuid").v4;
 const config = require("./../config");
+const jwt = require("jsonwebtoken");
 
 const userSchema = new mongoose.Schema(
   {
@@ -51,7 +52,6 @@ const userSchema = new mongoose.Schema(
     role: {
       type: Schema.Types.ObjectId,
       ref: "Role",
-      required: true,
     },
     expRole: {
       type: Date,
@@ -103,6 +103,43 @@ userSchema.pre("update", async function (next) {
   }
 });
 
+//method
+userSchema.method({
+  token() {
+    const playload = {
+      exp: moment().add(30, "days").unix(),
+      iat: moment().unix(),
+      id: this._id,
+    };
+    return jwt.sign(playload, config.authentication.jwtPrivateKey);
+  },
+
+  async passwordMatches(password) {
+    return bcrypt.compare(password, this.password);
+  },
+});
+//static
+userSchema.statics = {
+  async oAuthLogin({ service, id, email, fullname, avatar }) {
+    let user = await this.findOne({
+      $or: [{ [`services.${service}`]: id }, { email }],
+    });
+    console.log(user);
+    if (!user) {
+      user = await this.create({
+        services: { [service]: id },
+        email,
+        password: uuidv4(),
+        fullname,
+        avatar,
+      });
+    }
+    let token = user.token();
+    user = await user.toObject();
+    user.token = token;
+    return user;
+  },
+};
 /**
  * @typedef User
  */

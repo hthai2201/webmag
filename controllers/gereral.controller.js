@@ -1,4 +1,5 @@
 const moment = require("moment");
+const passport = require("passport");
 const { validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -8,6 +9,7 @@ const authenticationConfig = require("../config").authentication;
 const { errorFormatter } = require("../validator");
 module.exports = {
   home: async (req, res) => {
+    console.log("home", req.user);
     let { limit, fromDateBefore } = req.query;
     let endDate = moment();
     let startDate = moment(endDate).subtract(
@@ -136,9 +138,27 @@ module.exports = {
     });
   },
   login: async (req, res) => {
+    const { user } = req;
     try {
       res.render("login");
     } catch (error) {}
+  },
+  facebook: async (req, res, next) => {
+    passport.authenticate("facebook", function (err, user, info) {
+      if (err) {
+        return next(err);
+      }
+      if (!user) {
+        return res.redirect("/login");
+      }
+      req.logIn(user, function (err) {
+        if (err) {
+          return next(err);
+        }
+        res.cookie("token", user.token);
+        return res.redirect("/");
+      });
+    })(req, res, next);
   },
   login_post: async (req, res) => {
     try {
@@ -146,23 +166,23 @@ module.exports = {
       if (formError.isEmpty()) {
         //handle
         let { username, password } = req.body;
-
+        console.log(username, password);
         let user = await userModel.findOne({ username }).lean();
         if (user) {
           let comparePasswordResult = await bcrypt.compare(
             password,
             user.password
           );
-          let hash = bcrypt.hash(password, authenticationConfig.saltRounds);
-          console.log(hash);
           if (comparePasswordResult) {
             let token = await jwt.sign(
               user,
               authenticationConfig.jwtPrivateKey,
               {
-                expiresIn: "1m",
+                expiresIn: "30d",
               }
             );
+            res.cookie("token", token, { maxAge: 30 * 24 * 60 * 60 * 1000 });
+            res.redirect("/");
           } else {
             res.render("login", {
               formError: {
@@ -189,5 +209,12 @@ module.exports = {
     try {
       res.render("register");
     } catch (error) {}
+  },
+  logout: async (req, res) => {
+    req.logout();
+    console.log(req.user);
+    res.cookie("token", "", { maxAge: Date.now() });
+    res.clearCookie("token");
+    res.redirect("/");
   },
 };

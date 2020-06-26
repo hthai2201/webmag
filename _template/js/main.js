@@ -1,6 +1,5 @@
 (function ($) {
   "use strict";
-  //set-color
 
   // Fixed Nav
   var lastScrollTop = 0;
@@ -97,3 +96,4 @@
 
   setStickyPos();
 })(jQuery);
+

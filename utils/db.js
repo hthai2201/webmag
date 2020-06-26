@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 const mongodbConfig = require("./../config").mongodb;
-mongoose.set("debug", true);
+mongoose.set("debug", false);
 exports.connect = () => {
   mongoose
     .connect(mongodbConfig.url, {
@@ -11,6 +11,6 @@ exports.connect = () => {
       useUnifiedTopology: true,
       useFindAndModify: false,
     })
-    .then(() => console.log(`mongoDB ${mongodbConfig.url} connected...`));
+    .then(() => console.log("mongoose"));
   return mongoose.connection;
 };

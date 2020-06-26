@@ -55,7 +55,7 @@ module.exports = {
             : null,
       });
     } catch (error) {
-      console.log("runccccccccc");
+  
       res.render("listPosts", {
         errors: error.toString(),
       });
