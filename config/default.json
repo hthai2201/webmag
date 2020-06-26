@@ -5,7 +5,7 @@
     }
   },
   "production": {
-    "url": "mongodb://127.0.0.1:27017/webmag"
+    "url": "mongodb+srv://admin:admin@webmag.brirr.azure.mongodb.net/webmag?retryWrites=true&w=majority"
   },
   "common": {
     "pagination": {
