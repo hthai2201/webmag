@@ -6,7 +6,7 @@
   },
   "production": {
     "mongodb": {
-      "url": "mongodb+srv://admin:<password>@webmag.brirr.azure.mongodb.net/<dbname>?retryWrites=true&w=majority"
+      "url": "mongodb+srv://admin:admin@webmag.brirr.azure.mongodb.net/webmag?retryWrites=true&w=majority"
     }
   },
   "common": {
