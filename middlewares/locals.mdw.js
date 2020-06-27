@@ -1,6 +1,13 @@
 const LRU = require("lru-cache");
-const { categoryModel, tagModel, postModel } = require("./../models");
+const jwt = require("jsonwebtoken");
+const {
+  categoryModel,
+  tagModel,
+  postModel,
+  userModel,
+} = require("./../models");
 const postConfig = require("./../config").post;
+const authenticationConfig = require("./../config").authentication;
 const cache = new LRU({
   max: 500,
   maxAge: 1000 * 60,
@@ -28,7 +35,7 @@ module.exports = function (app) {
     let categories = cache.get("categories");
     let tags = cache.get("tags");
     let mostReadPosts = cache.get("mostReadPosts");
-
+    let { user } = req;
     if (!categories) {
       categories = await categoryModel.find({ isRoot: true }).lean();
       cache.set("categories", categories);
@@ -45,9 +52,11 @@ module.exports = function (app) {
         .lean();
       cache.set("mostReadPosts", mostReadPosts);
     }
+
     res.locals.categories = categories;
     res.locals.tags = tags;
     res.locals.mostReadPosts = mostReadPosts;
+    res.locals.user = user;
     next();
   });
 };

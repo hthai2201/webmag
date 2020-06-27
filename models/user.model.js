@@ -121,6 +121,7 @@ userSchema.method({
 //static
 userSchema.statics = {
   async oAuthLogin({ service, id, email, fullname, avatar }) {
+    console.log(service);
     let user = await this.findOne({
       $or: [{ [`services.${service}`]: id }, { email }],
     });

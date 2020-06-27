@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 const mongodbConfig = require("./../config").mongodb;
-mongoose.set("debug", false);
+mongoose.set("debug", true);
 exports.connect = () => {
   mongoose
     .connect(mongodbConfig.url, {

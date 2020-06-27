@@ -155,7 +155,24 @@ module.exports = {
         if (err) {
           return next(err);
         }
-        res.cookie("token", user.token);
+        res.cookie("token", user.token, { maxAge: 30 * 24 * 60 * 60 * 1000 });
+        return res.redirect("/");
+      });
+    })(req, res, next);
+  },
+  google: async (req, res, next) => {
+    passport.authenticate("google", function (err, user, info) {
+      if (err) {
+        return next(err);
+      }
+      if (!user) {
+        return res.redirect("/login");
+      }
+      req.logIn(user, function (err) {
+        if (err) {
+          return next(err);
+        }
+        res.cookie("token", user.token, { maxAge: 30 * 24 * 60 * 60 * 1000 });
         return res.redirect("/");
       });
     })(req, res, next);
@@ -175,7 +192,9 @@ module.exports = {
           );
           if (comparePasswordResult) {
             let token = await jwt.sign(
-              user,
+              {
+                id: user._id,
+              },
               authenticationConfig.jwtPrivateKey,
               {
                 expiresIn: "30d",

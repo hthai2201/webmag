@@ -1,5 +1,6 @@
 const passport = require("passport");
 const facebook = require("./facebook");
+const google = require("./google");
 module.exports = (app) => {
   app.use(passport.initialize());
   app.use(passport.session());
@@ -11,4 +12,5 @@ module.exports = (app) => {
     cb(null, obj);
   });
   facebook();
+  google();
 };

@@ -15,6 +15,7 @@ app.use(
 );
 app.use("/", express.static("public"));
 app.use(cookieParser());
+app.use(require("./middlewares/auth.mdw").parseTokenToUser);
 require("./middlewares/session.mdw")(app);
 require("./middlewares/view.mdw")(app);
 require("./middlewares/locals.mdw")(app);
@@ -24,7 +25,7 @@ passport(app);
 db.connect();
 //router
 app.use(router);
-app.use(require("./middlewares/auth.mdw").parseTokenToUser);
+
 app.get("/err", function (req, res) {
   throw new Error("beng beng");
 });

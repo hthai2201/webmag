@@ -13,6 +13,11 @@ router.get(
   passport.authenticate("facebook", { scope: ["email"] })
 );
 router.get("/facebook/cb", generalController.facebook);
+router.get(
+  "/google",
+  passport.authenticate("google", { scope: ["profile", "email"] })
+);
+router.get("/google/cb", generalController.google);
 //passport.authenticate("facebook", { failureRedirect: "/login" }),
 router.get("/register", generalController.register);
 router.get("/logout", generalController.logout);

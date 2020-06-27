@@ -23,7 +23,26 @@
                     <!-- /nav -->
                     <!-- search & aside toggle -->
                     <div class="nav-btns ml-auto">
-                        <button class="aside-btn"><i class="fa fa-bars"></i></button>
+                        {{#if user}}
+                        <div class="dropdown d-inline-block">
+                            <div class="avatar-sm text-right dropdown-toggle" data-toggle="dropdown"> <a
+                                    href="/profile"><img src="{{user.avatar}}" alt="{{user.fullname}}"></a></div>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="/profile"><i class="fa fa-user-circle-o"
+                                        aria-hidden="true"></i> Profile</a>
+
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/logout"><i class="fa fa-sign-out"
+                                        aria-hidden="true"></i> Logout</a>
+                            </div>
+                        </div>
+
+
+                        {{else}}
+                        <a class="" href="/login">Login</i></a>
+                        {{/if}}
+
+                        <button class="aside-btn aside-toggle-btn"><i class="fa fa-bars"></i></button>
                         <button class="search-btn"><i class="fa fa-search"></i></button>
                         <form action="/search">
                             <div class="search-form">
