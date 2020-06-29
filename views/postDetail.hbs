@@ -11,12 +11,14 @@
                         {{{content}}}
                     </div>
                     <div class="post-shares sticky-shares">
+                        <a href="/posts/{{slug}}/like" class="like"><i class="fa fa-thumbs-up"
+                                aria-hidden="true"></i></a>
+                        <div class="break"></div>
                         <a href="#" class="share-facebook"><i class="fa fa-facebook"></i></a>
                         <a href="#" class="share-twitter"><i class="fa fa-twitter"></i></a>
                         <a href="#" class="share-google-plus"><i class="fa fa-google-plus"></i></a>
                         <a href="#" class="share-pinterest"><i class="fa fa-pinterest"></i></a>
-                        <a href="#" class="share-linkedin"><i class="fa fa-linkedin"></i></a>
-                        <a href="#"><i class="fa fa-envelope"></i></a>
+
                     </div>
                 </div>
 
@@ -67,21 +69,21 @@
                     </div>
 
                     <div class="post-comments">
-                        {{#each commnets}}
+                        {{#each comments}}
                         <!-- comment -->
                         <div class="media">
                             <div class="media-left">
-                                <img class="media-object" src="{{avatar}}" alt="{{fullname}}">
+                                {{#with user}}<img class="media-object" src="{{avatar}}" alt="{{fullname}}" />{{/with}}
                             </div>
                             <div class="media-body">
                                 <div class="media-heading">
-                                    <h4>{{#if pseudonym}}
+                                    {{#with user}} <h4>{{#if pseudonym}}
                                         {{pseudonym}}
                                         {{else}}
                                         {{fullname}}
-                                        {{/if}}</h4>
+                                        {{/if}}</h4>{{/with}}
                                     <span class="time">{{date createdAt "MMMM D, YYYY"}}</span>
-                                    <a href="#" class="reply">Reply</a>
+                                    <a data-toggle="collapse" href="#comment_{{@index}}" class="reply">Reply</a>
                                 </div>
                                 <p>{{content}}</p>
 
@@ -89,17 +91,18 @@
                                 <!-- comment -->
                                 <div class="media">
                                     <div class="media-left">
-                                        <img class="media-object" src="{{avatar}}" alt="{{fullname}}">
+                                        {{#with user}}<img class="media-object" src="{{avatar}}"
+                                            alt="{{fullname}}">{{/with}}
                                     </div>
                                     <div class="media-body">
                                         <div class="media-heading">
-                                            <h4>{{#if pseudonym}}
+                                            {{#with user}} <h4>{{#if pseudonym}}
                                                 {{pseudonym}}
                                                 {{else}}
                                                 {{fullname}}
-                                                {{/if}}</h4>
+                                                {{/if}}</h4>{{/with}}
                                             <span class="time">{{date createdAt "MMMM D, YYYY"}}</span>
-                                            <a href="#" class="reply">Reply</a>
+                                            <a data-toggle="collapse" href="#comment_{{@index}}" class="reply">Reply</a>
                                         </div>
                                         <p>{{content}}</p>
 
@@ -108,6 +111,13 @@
                                 </div>
                                 <!-- /comment -->
                                 {{/each}}
+                                <div class="collapse mb-3" id="comment_{{@index}}">
+                                    <form action="/posts/{{../slug}}/comment" method="POST">
+                                        <input name="replyCommentId" value={{_id}} type="text" hidden>
+                                        <input name="content" type="text" class="input mb-2">
+                                        <button class="primary-button">Submit</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                         <!-- /comment -->
@@ -125,8 +135,11 @@
                         <h2>Leave a reply</h2>
                         <p>your email address will not be published. required fields are marked *</p>
                     </div>
-                    <form class="post-reply">
+                    <form class="post-reply" method="POST" action="/posts/{{slug}}/comment">
+
                         <div class="row">
+                            {{#if ../user}}
+                            {{else}}
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <span>Name *</span>
@@ -145,9 +158,10 @@
                                     <input class="input" type="text" name="website">
                                 </div>
                             </div>
+                            {{/if}}
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <textarea class="input" name="message" placeholder="Message"></textarea>
+                                    <textarea class="input" name="content" placeholder="Message"></textarea>
                                 </div>
                                 <button class="primary-button">Submit</button>
                             </div>

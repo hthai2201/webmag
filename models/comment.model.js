@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 const moment = require("moment-timezone");
 const commentSchema = new mongoose.Schema(
   {
-    userId: {
+    user: {
       type: Schema.Types.ObjectId,
       ref: "User",
       required: true,
@@ -12,7 +12,7 @@ const commentSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
-    relyComments: [
+    replyComments: [
       {
         type: Schema.Types.ObjectId,
         ref: "Comment",
@@ -31,6 +31,16 @@ const commentSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+//method
+commentSchema.methods.addRefs = async function (prop, id) {
+  this[prop] = this[prop] || [];
+  if (!this[prop].includes(id)) {
+    this[prop].push(id);
+  }
+  console.log(this, "this");
+  await this.save();
+  return this;
+};
 /**
  * @typedef Comment
  */

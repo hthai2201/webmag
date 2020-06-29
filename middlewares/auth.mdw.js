@@ -15,13 +15,20 @@ const parseTokenToUser = async (req, res, next) => {
   }
   next();
 };
+const needUser = (roles) => (req, res, next) => {
+  if (req.user) {
+    if (req.user.role && roles && roles.length) {
+      if (roles.includes(req.user.role)) {
+        next();
+      }
+    } else {
+      next();
+    }
+  } else {
+    res.redirect(`/login?retUrl=${req.originalUrl}`);
+  }
+};
 module.exports = {
   parseTokenToUser,
+  needUser,
 };
-// module.exports = function (req, res, next) {
-//   if (!req.session.isAuthenticated) {
-//     return res.redirect(`/account/login?retUrl=${req.originalUrl}`);
-//   }
-
-//   next();
-// };

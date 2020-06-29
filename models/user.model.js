@@ -111,7 +111,9 @@ userSchema.method({
       iat: moment().unix(),
       id: this._id,
     };
-    return jwt.sign(playload, config.authentication.jwtPrivateKey);
+    let token = jwt.sign(playload, config.authentication.jwtPrivateKey);
+
+    return token;
   },
 
   async passwordMatches(password) {

@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { loginValidator } = require("../validator");
+const { loginValidator, registerValidator } = require("../validator");
 const { generalController } = require("../controllers");
 const passport = require("passport");
 router.get("/", generalController.home);
@@ -20,5 +20,7 @@ router.get(
 router.get("/google/cb", generalController.google);
 //passport.authenticate("facebook", { failureRedirect: "/login" }),
 router.get("/register", generalController.register);
+router.post("/register", registerValidator(), generalController.register_post);
+
 router.get("/logout", generalController.logout);
 module.exports = router;

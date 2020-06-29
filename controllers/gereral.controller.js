@@ -178,30 +178,25 @@ module.exports = {
     })(req, res, next);
   },
   login_post: async (req, res) => {
+    let { retUrl } = req.query;
     try {
       let formError = validationResult(req);
       if (formError.isEmpty()) {
         //handle
         let { username, password } = req.body;
         console.log(username, password);
-        let user = await userModel.findOne({ username }).lean();
+        let user = await userModel.findOne({ username });
         if (user) {
           let comparePasswordResult = await bcrypt.compare(
             password,
             user.password
           );
+          console.log(user, comparePasswordResult);
           if (comparePasswordResult) {
-            let token = await jwt.sign(
-              {
-                id: user._id,
-              },
-              authenticationConfig.jwtPrivateKey,
-              {
-                expiresIn: "30d",
-              }
-            );
+            let token = user.token();
+            console.log(token);
             res.cookie("token", token, { maxAge: 30 * 24 * 60 * 60 * 1000 });
-            res.redirect("/");
+            res.redirect(retUrl ? retUrl : "/");
           } else {
             res.render("login", {
               formError: {
@@ -227,6 +222,48 @@ module.exports = {
   register: async (req, res) => {
     try {
       res.render("register");
+    } catch (error) {}
+  },
+  register_post: async (req, res) => {
+    try {
+      let formError = validationResult(req);
+      console.log(
+        new Date(req.body.dobValue),
+        Date.now(req.body.dobValuex),
+        moment(req.body.dobValue, "YYYY/MM/DD")
+      );
+      if (formError.isEmpty()) {
+        let { username, email, password, dobValue, fullname } = req.body;
+        let user = await userModel
+          .findOne({
+            username,
+            email,
+          })
+          .lean();
+        console.log(user);
+        if (user) {
+          res.render("register", {
+            formError: {
+              username: "Username not available",
+            },
+          });
+        } else {
+          let newUser = await userModel
+            .create({
+              username,
+              email,
+              password,
+              dob: dobValue,
+              fullname,
+            })
+            .lean();
+          console.log(newUser);
+          res.render("register");
+        }
+      } else {
+        formError = formError.formatWith(errorFormatter).mapped();
+        res.render("register", { formError });
+      }
     } catch (error) {}
   },
   logout: async (req, res) => {

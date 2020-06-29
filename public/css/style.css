@@ -695,10 +695,19 @@ textarea.input {
   -webkit-transition: 0.2s all;
   transition: 0.2s all;
 }
+.sticky-shares .break {
+  display: block;
+  border: solid 2px #eceef2;
+  margin: 20px 0;
+}
 .sticky-shares a:hover {
   -webkit-transform: scale(1.3);
   -ms-transform: scale(1.3);
   transform: scale(1.3);
+}
+.sticky-shares a.like:hover {
+  color: #0079bf;
+  border-color: #0079bf;
 }
 .sticky-shares a.share-facebook:hover {
   color: #3b5998;

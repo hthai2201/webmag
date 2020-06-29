@@ -66,6 +66,13 @@ const postSchema = new mongoose.Schema(
       enum: postStatusEnum,
       default: postStatusEnum[0],
     },
+    comments: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Comment",
+        required: true,
+      },
+    ],
   },
   {
     timestamps: true,
@@ -76,6 +83,16 @@ postSchema.index(
   { title: "text", abstract: "text", content: "text" },
   { name: "post_fts_index" }
 );
+//method
+postSchema.methods.addRefs = async function (prop, id) {
+  this[prop] = this[prop] || [];
+  if (!this[prop].includes(id)) {
+    this[prop].push(id);
+  }
+  console.log(this, "this");
+  await this.save();
+  return this;
+};
 //hook
 postSchema.post("find", (doc) => {
   // doc = doc.length

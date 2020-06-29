@@ -1,27 +1,57 @@
 <div class="login-container">
     <div class="login-wrap">
-        <form class="login-form">
+        <form class="login-form" method="POST">
             <h1>ACCOUNT REGISTER</h1>
             <h4>USERNAME</h4>
             <div class="input-wrap">
-                <input class="input" type="text">
+                <input name="username" class="input {{#if formError.username}}is-invalid{{else}}is-valid{{/if}}"
+                    type="text">
                 <span class="focus-input"></span>
+                {{#if formError.username}} <div class="invalid-feedback position-absolute">
+                    {{ formError.username}}
+                </div>{{/if}}
             </div>
+
+
             <h4>PASSWORD</h4>
-            <div class="input-wrap password">
-                <input class="input" type="text">
+            <div class="input-wrap password ">
+                <input name="password" class="input {{#if formError.password}}is-invalid{{else}}is-valid{{/if}}"
+                    type="password">
                 <span class="focus-input"></span>
+                {{#if formError.password}} <div class="invalid-feedback position-absolute">
+                    {{ formError.password}}
+                </div>{{/if}}
             </div>
-            <div class="meta">
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="customCheck1">
-                    <label class="custom-control-label" for="customCheck1">Remember me</label>
-                </div>
-                <div class="forgot-password"><a href="/"></a>Forgot Password?</div>
+            <h4>EMAIL</h4>
+            <div class="input-wrap password">
+                <input name="email" class="input {{#if formError.email}}is-invalid{{else}}is-valid{{/if}}" type="text">
+                <span class="focus-input"></span>
+                {{#if formError.email}} <div class="invalid-feedback position-absolute">
+                    {{ formError.email}}
+                </div>{{/if}}
             </div>
+            <h4>FULLNAME</h4>
+            <div class="input-wrap password">
+                <input name="fullname" class="input {{#if formError.fullname}}is-invalid{{else}}is-valid{{/if}}"
+                    type="text">
+                <span class="focus-input"></span>
+                {{#if formError.fullname}} <div class="invalid-feedback position-absolute">
+                    {{ formError.fullname}}
+                </div>{{/if}}
+            </div>
+            <h4>DOB</h4>
+            <div class="input-wrap password">
+                <input name="dob" class="datepicker input {{#if formError.dobValue}}is-invalid{{else}}is-valid{{/if}}"
+                    name="date" />
+                {{#if formError.dobValue}} <div class="invalid-feedback position-absolute">
+                    {{ formError.dobValue}}
+                </div>{{/if}}
+
+            </div>
+
             <div class="login-method">
                 <div class="input-wrap">
-                    <button class="btn primary-button">LOGIN</button>
+                    <button class="btn primary-button">REGISTER </button>
 
                 </div>
                 <div> OR </div>
@@ -34,8 +64,42 @@
                     </a>
                 </div>
             </div>
-            <div class="text-center">Don't have an account? <a href="/register">Register</a></div>
+            <div class="text-center">Have an account? <a href="/login">Login</a></div>
 
         </form>
     </div>
 </div>
+{{#section 'css'}}
+
+
+<!-- Classic Theme (Core) -->
+<link rel="stylesheet" href="/datetime/themes/default.css">
+<!-- Classic Theme (Date Picker) -->
+<link rel="stylesheet" href="/datetime/themes/default.date.css">
+<link rel="stylesheet" href="/datetime/themes/default.time.css">
+{{/section}}
+{{#section 'js'}}
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"
+    integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ"
+    crossorigin="anonymous"></script>
+<script src="/datetime/picker.js"></script>
+<!-- Date Picker -->
+<script src="/datetime/picker.date.js"></script>
+<script src="/datetime/picker.time.js"></script>
+<!-- Language -->
+<script src="/datetime/translations/vi_VN.js"></script>
+<script src="/datetime/legacy.js"></script>
+
+<script>
+    $('.datepicker').pickadate({
+        closeOnSelect: true,
+        closeOnClear: false,
+        selectMonths: true,
+        selectYears: 50,
+
+        formatSubmit: 'yyyy/mm/dd',
+        hiddenSuffix: 'Value'
+    });
+
+</script>
+{{/section}}

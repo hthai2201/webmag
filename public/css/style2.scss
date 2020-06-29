@@ -1,3 +1,8 @@
+.picker__select--month,
+.picker__select--year {
+  // padding: 0 0 0 5px !important;
+  height: auto !important;
+}
 a {
   &:hover,
   &:focus {
