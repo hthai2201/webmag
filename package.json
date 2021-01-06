@@ -13,7 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "await-to-js": "^2.1.1",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.5",
     "crypto": "^1.0.1",
